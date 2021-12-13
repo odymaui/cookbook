@@ -1,0 +1,3 @@
+This is based on the examples from book https://rust-lang-nursery.github.io/rust-cookbook/intro.html
+
+running in a project to step into it in vscode...
