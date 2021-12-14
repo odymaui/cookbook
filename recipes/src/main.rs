@@ -7,13 +7,33 @@ mod ansi_term;
 
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     println!("Running Recipes");
-    
-    crate::ansi_term::run_demo();
 
+    simple_sort();
+
+    crate::ansi_term::run_demo();
     crate::commandline::process_main();
 
     //random::print_random_number();
     print_random_number();
 
     Ok(())
+}
+
+fn simple_sort() {
+
+    println!("Sort A Vector: Before");
+    let mut items = vec!("foo", "bar", "baz");
+
+    for i in &items {
+        println!("{}", i);
+    }
+
+    println!("After Vector:");
+
+    items.sort();
+
+    for i in items {
+        println!("{}", i);
+    }
+
 }
