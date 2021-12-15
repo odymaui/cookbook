@@ -4,12 +4,14 @@ use crate::random::print_random_number;
 mod random;
 mod commandline;
 mod ansi_term;
+mod compression;
 
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     println!("Running Recipes");
 
     simple_sort();
 
+    crate::compression::compress_directory()?;
     crate::ansi_term::run_demo();
     crate::commandline::process_main();
 
