@@ -11,7 +11,10 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
 
     simple_sort();
 
-    crate::compression::compress_directory()?;
+    crate::compression::create_compress_directory()?;
+
+    crate::compression::decompress_tar()?;
+
     crate::ansi_term::run_demo();
     crate::commandline::process_main();
 
