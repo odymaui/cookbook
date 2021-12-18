@@ -7,9 +7,16 @@ mod commandline;
 mod ansi_term;
 mod compression;
 mod concurrency;
+mod external_commands;
+
+//this is generated from the build.rs 
+//https://doc.rust-lang.org/cargo/reference/build-script-examples.html
+include!(concat!(env!("OUT_DIR"), "/hello.rs"));
 
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     println!("Running Recipes");
+
+    println!("Build Result Message: {}", message());
 
     println!("Running Without Joining");
     crate::concurrency::run_threads_without_with_join(false);
@@ -21,6 +28,8 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     crate::concurrency::thread_channel_example_multiple_producers();
 
     crate::concurrency::mutex_demo();
+
+    crate::external_commands::run_os_command();
 
     //just return for now...
     return Ok(());
