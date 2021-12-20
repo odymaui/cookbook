@@ -8,6 +8,7 @@ mod ansi_term;
 mod compression;
 mod concurrency;
 mod external_commands;
+mod type_stuff;
 
 //this is generated from the build.rs 
 //https://doc.rust-lang.org/cargo/reference/build-script-examples.html
@@ -31,6 +32,10 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
 
     crate::external_commands::run_os_command();
 
+    crate::type_stuff::example_type_test();
+
+    crate::type_stuff::count_shapes();
+    
     //just return for now...
     return Ok(());
 
