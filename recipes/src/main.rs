@@ -9,6 +9,8 @@ mod compression;
 mod concurrency;
 mod external_commands;
 mod type_stuff;
+mod misc;
+mod macro_example;
 
 //this is generated from the build.rs 
 //https://doc.rust-lang.org/cargo/reference/build-script-examples.html
@@ -16,6 +18,11 @@ include!(concat!(env!("OUT_DIR"), "/hello.rs"));
 
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     println!("Running Recipes");
+
+    macro_example::run_min_calls();
+
+    misc::simple_cast();
+    misc::simple_type_alias();
 
     println!("Build Result Message: {}", message());
 
