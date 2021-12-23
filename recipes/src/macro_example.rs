@@ -1,4 +1,22 @@
+/*
+The arguments of a macro are prefixed by a dollar sign $ and type annotated with a designator:
 
+This is a list of all the designators:
+
+    block
+    expr is used for expressions
+    ident is used for variable/function names
+    item
+    pat (pattern)
+    path
+    stmt (statement)
+    tt (token tree)
+    ty (type)
+
+
+To repeat you can use ,* or ,+ for 0 or 1 or more items.
+
+*/
 
 // min! will calculate the minimum of any number of arguments
 macro_rules! min_value {

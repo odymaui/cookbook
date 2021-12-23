@@ -23,6 +23,8 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
 
     misc::simple_cast();
     misc::simple_type_alias();
+    misc::get_stringify_result();
+    misc::run_fibonacci_sequence(10);
 
     println!("Build Result Message: {}", message());
 
