@@ -39,22 +39,50 @@ pub fn run_fibonacci_sequence(sequence_count: usize) {
 
     let mut fib = Fibonacci::default();
 
+    //this prints the zero because it prints before next is called...
     for _ in 0..sequence_count {
         println!("{:?}", &fib);
         fib = fib.next().unwrap();
     }
 
     //Note, skips the first entry
+    //also no need to call unwrap...
     for fibn in Fibonacci::default().take(sequence_count) {
         println!("{:?}", &fibn);
+    }
+
+    let fibiter = Fibonacci::default().take(sequence_count);
+    //note the take wrapper of the iterator...
+    println!("Zero iter ver: {:?}", fibiter);
+
+    for val in fibiter {
+        println!("iter ver: {:?}", val);
+    }
+
+}
+
+pub fn get_fibonacci_sequence() -> Fibonacci {
+    //since this return outside module
+    //if struct fields are not public not visible
+    //however if in the module they are public...
+    Fibonacci::default()
+}
+
+pub fn iterator_processing() {
+    let v1 = vec![1, 2, 3];
+
+    let v1_iter = v1.iter();
+
+    for val in v1_iter {
+        println!("v1 iterator: {}", val);
     }
 }
 
 #[derive(Debug)]
 pub struct Fibonacci {
-    current: u64,
-    next: u64,
-    index: u32
+   pub current: u64,
+   next: u64,
+   pub index: u32
 }
 
 impl Default for Fibonacci {

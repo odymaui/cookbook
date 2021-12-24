@@ -25,6 +25,17 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     misc::simple_type_alias();
     misc::get_stringify_result();
     misc::run_fibonacci_sequence(10);
+    misc::iterator_processing();
+    //this will be an infinite loop???
+    //stops due to overflow if no break...
+    for val in misc::get_fibonacci_sequence() {
+        //debug prints what are private fields
+        //33 |         println!("External val: {}", val.current);
+        //   |                                 ^^^^^^^ private field
+        println!("External val: {:?}", val);
+        println!("External val: {} -> {}", val.index, val.current);
+        if val.index > 91 { break; }
+    }
 
     println!("Build Result Message: {}", message());
 
