@@ -27,21 +27,15 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
       println!("I'm not in a terminal");
     }
 
-    //let mut items: Vec<u64> = vec!();
-    //let mut items: Vec<u64> = vec!(3);
-    //let mut items: Vec<u64> = vec!(5,3);
-    //let mut items: Vec<u64> = vec!(5,3,1);
-    //let mut items: Vec<u64> = vec!(3,5,7,1);
-    let mut items: Vec<u64> = vec!(5,3,5,7,6,1,2,4,3,8,1,0);
-    //infinit look and breaks on duplicate entries... 
+    //let mut items: Vec<u64> = vec!(5,3,5,7,6,1,2,4,3,8,1,0);
+    //let mut items = vec!(-5,-3,-5,-7,-6,-1,-2,-4,-3,-8,-1,0);
+    let mut items = vec!(-5.7,-3.8,-5.0,-7.0,-6.0,-1.0,-2.0,-4.0,-3.0,-8.0,-1.0,0.0);
 
     println!("Before: {:?}", items);
 
     sort::merge_sort(&mut items);
 
     println!("After: {:?}", items);
-
-    return Ok(());
 
     macro_example::run_min_calls();
 
