@@ -1,5 +1,6 @@
-#[warn(unreachable_code)]
+use atty::Stream;
 
+#[warn(unreachable_code)]
 use crate::random::print_random_number;
 
 mod random;
@@ -11,6 +12,7 @@ mod external_commands;
 mod type_stuff;
 mod misc;
 mod macro_example;
+mod sort;
 
 //this is generated from the build.rs 
 //https://doc.rust-lang.org/cargo/reference/build-script-examples.html
@@ -19,23 +21,38 @@ include!(concat!(env!("OUT_DIR"), "/hello.rs"));
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     println!("Running Recipes");
 
+    if atty::is(Stream::Stdout) {
+        println!("I'm a terminal");
+    } else {
+      println!("I'm not in a terminal");
+    }
+
+    //let mut items: Vec<u64> = vec!();
+    //let mut items: Vec<u64> = vec!(3);
+    //let mut items: Vec<u64> = vec!(5,3);
+    //let mut items: Vec<u64> = vec!(5,3,1);
+    //let mut items: Vec<u64> = vec!(3,5,7,1);
+    let mut items: Vec<u64> = vec!(5,3,5,7,6,1,2,4,3,8,1,0);
+    //infinit look and breaks on duplicate entries... 
+
+    println!("Before: {:?}", items);
+
+    sort::merge_sort(&mut items);
+
+    println!("After: {:?}", items);
+
+    return Ok(());
+
     macro_example::run_min_calls();
 
+    misc::print_ruler();
     misc::simple_cast();
     misc::simple_type_alias();
     misc::get_stringify_result();
     misc::run_fibonacci_sequence(10);
     misc::iterator_processing();
-    //this will be an infinite loop???
-    //stops due to overflow if no break...
-    for val in misc::get_fibonacci_sequence() {
-        //debug prints what are private fields
-        //33 |         println!("External val: {}", val.current);
-        //   |                                 ^^^^^^^ private field
-        println!("External val: {:?}", val);
-        println!("External val: {} -> {}", val.index, val.current);
-        if val.index > 91 { break; }
-    }
+    //below...
+    self::run_fibonacci_sequence_stuff();
 
     println!("Build Result Message: {}", message());
 
@@ -92,4 +109,46 @@ fn simple_sort() {
         println!("{}", i);
     }
 
+}
+
+
+fn run_fibonacci_sequence_stuff() {
+    
+    //this will be an infinite loop???
+    //stops due to overflow if no break...
+    for val in misc::get_fibonacci_sequence() {
+        //debug prints what are private fields
+        //33 |         println!("External val: {}", val.current);
+        //   |                                 ^^^^^^^ private field
+        println!("External val: {:?}", val);
+        println!("External val: {} -> {}", val.index, val.current);
+        if val.index > 91 { break; }
+    }
+
+    let idx = 7;
+    for v in misc::get_fibonacci_sequence().take(idx) {
+        println!("{}->{}", v.index, v.current);    
+    }
+    println!("sum of the first {}: {}", idx, misc::get_fibonacci_sequence().take(idx).map(|f| f.current).sum::<u64>());
+    //don't need the index since it's available
+    //Like most indexing operations, the count starts from zero, so nth(0) returns the first value, nth(1) the second, and so on.
+    //https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.nth
+    //set idx + 1 since 0 based...
+    println!("The {}th: {}", idx + 1, misc::get_fibonacci_sequence().nth(idx).unwrap().current);
+    println!("{}", format!("The {}th: {}", idx + 1, misc::get_fibonacci_sequence().nth(idx).unwrap()));
+
+    //need to pick to_string or fmt...
+    println!("default display {}", misc::get_fibonacci_sequence().nth(idx).unwrap());
+
+    let nothing = misc::get_fibonacci_sequence().map(|f| f.current);
+
+    println!("Nothing: {:?}", nothing);
+    //doesn't work come back later...
+    /*
+    let something: dyn std::iter::Iterator<Item=misc::Fibonacci> = misc::get_fibonacci_sequence().map(|f| f).take(50).collect();
+
+    for some in &mut something {
+        println!("some of something: {}", some);
+    }
+    */
 }

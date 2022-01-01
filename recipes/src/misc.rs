@@ -1,3 +1,13 @@
+pub fn print_ruler() {
+    let mut ruler: Vec<String> = Vec::new();
+    ruler.push(String::from("1"));
+    for v in [2,3,4,5] {
+        let crnt = ruler.last().unwrap();
+        let result = format!("{}|{}|{}", crnt, v, crnt);
+        ruler.push(result);
+    }
+    println!("{}", ruler.last().unwrap());
+}
 
 
 pub fn simple_cast() {
@@ -94,6 +104,32 @@ impl Default for Fibonacci {
         }
     }
 }
+
+impl std::fmt::Display for Fibonacci {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "diplay trait format: {} -> {}", self.index, self.current)
+    }
+}
+
+/*
+note: conflicting implementation in crate `alloc`:
+            - impl<T> ToString for T
+              where T: std::fmt::Display, T: ?Sized;
+
+impl std::string::ToString for Fibonacci {
+    fn to_string(&self) -> String {
+        format!("{} -> {}", self.index, self.current)
+    }
+}
+*/
+
+/* //not working as needed - come back later.
+impl FromIterator<Fibonacci> for Fibonacci {
+    fn from_iter<I: IntoIterator<Item=Fibonacci>>(_iter: I) -> Self {
+        Fibonacci::default()
+    }
+}
+*/
 
 impl Iterator for Fibonacci {
     type Item = Self;
