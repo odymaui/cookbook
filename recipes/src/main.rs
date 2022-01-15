@@ -13,6 +13,7 @@ mod type_stuff;
 mod misc;
 mod macro_example;
 mod sort;
+mod make_change;
 
 //this is generated from the build.rs 
 //https://doc.rust-lang.org/cargo/reference/build-script-examples.html
@@ -27,15 +28,13 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
       println!("I'm not in a terminal");
     }
 
-    //let mut items: Vec<u64> = vec!(5,3,5,7,6,1,2,4,3,8,1,0);
-    //let mut items = vec!(-5,-3,-5,-7,-6,-1,-2,-4,-3,-8,-1,0);
-    let mut items = vec!(-5.7,-3.8,-5.0,-7.0,-6.0,-1.0,-2.0,-4.0,-3.0,-8.0,-1.0,0.0);
+    let items1 = &mut vec!(5,3,5,7,6,1,2,4,3,8,1,0);
+    let items2 = &mut vec!(-5,-3,-5,-7,-6,-1,-2,-4,-3,-8,-1,0);
+    let items3 = &mut vec!(-5.7,-3.8,-5.0,-7.0,-6.0,-1.0,-2.0,-4.0,-3.0,-8.0,-1.0,0.0);
 
-    println!("Before: {:?}", items);
-
-    sort::merge_sort(&mut items);
-
-    println!("After: {:?}", items);
+    sort_arrays(items1);
+    sort_arrays(items2);
+    sort_arrays(items3);
 
     macro_example::run_min_calls();
 
@@ -66,6 +65,10 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     crate::type_stuff::example_type_test();
 
     crate::type_stuff::count_shapes();
+
+    crate::make_change::make_change(447);
+    crate::make_change::make_change(777);
+    crate::make_change::make_change(783);
     
     //just return for now...
     return Ok(());
@@ -84,6 +87,22 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
     }
+}
+
+fn sort_arrays<T: std::marker::Copy + std::fmt::Display + std::cmp::PartialOrd>(array: &mut Vec<T>) {
+    print!("Before: [ ");
+    for i in array.into_iter() {
+        print!("{} ", i);
+    }
+    println!("]");
+
+    sort::merge_sort(array);
+    
+    print!("After: [ ");
+    for i in array.into_iter() {
+        print!("{} ", i);
+    }
+    println!("]");
 }
 
 fn simple_sort() {
