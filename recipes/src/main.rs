@@ -14,6 +14,7 @@ mod misc;
 mod macro_example;
 mod sort;
 mod make_change;
+mod format;
 
 //this is generated from the build.rs 
 //https://doc.rust-lang.org/cargo/reference/build-script-examples.html
@@ -21,6 +22,9 @@ include!(concat!(env!("OUT_DIR"), "/hello.rs"));
 
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     println!("Running Recipes");
+
+
+    format::print_formatted_stuff();
 
     if atty::is(Stream::Stdout) {
         println!("I'm a terminal");
