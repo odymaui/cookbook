@@ -6,6 +6,12 @@ fn make_string(a: u32, b: &str) -> String {
 //https://doc.rust-lang.org/std/fmt/
 pub fn print_formatted_stuff() {
 
+    let sample_array: [i32; 5] = [1,2,3,4,5];
+
+    println!("Mem Allocation for {:?} is {} bytes -> {} elements * {} bytes", &sample_array, std::mem::size_of_val(&sample_array), &sample_array.len(), 4);
+
+    println!("{:?}", &sample_array[0..3]);
+
     //numbers or positional 
     println!("{}", format!("{} {1} {2} {} {0} {}", 1, 2, 3)); // => "1 2 3 2 1 3"
     //named parameter
@@ -58,5 +64,9 @@ pub fn print_formatted_stuff() {
     assert_eq!(format!("Hello {:>5}!", "x"),  "Hello     x!");
 
     //todo finish numeric and other options...
+
+
+    eprintln!("error println: {} => {}", "foo", "bar");
+    eprintln!("error println: {bar} => {foo}", foo="foo", bar="bar");
 }
 
