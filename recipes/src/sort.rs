@@ -14,6 +14,13 @@ pub fn merge_sort<T: PartialOrd + Copy>(items: &mut [T]) {
 }
 
 fn merge<T: PartialOrd + Copy>(items: &mut [T], mid: usize) {
+
+    //only use one for now...
+    let _cmp_less = |left:T, right:T| left <= right;
+    let cmp_more = |left:T, right:T| left >= right;
+   
+    let cmp_expr: fn (T, T) -> bool = cmp_more;
+
     //copy the left and right sides of the array
     let left_array = items[..mid].to_vec();
     let right_array = items[mid..].to_vec();
@@ -25,7 +32,8 @@ fn merge<T: PartialOrd + Copy>(items: &mut [T], mid: usize) {
     for idx in 0..items.len() {
         //while in bounds of each array
         if l_idx < left_array.len() && r_idx < right_array.len() {
-            if left_array[l_idx] < right_array[r_idx] {
+            //if left_array[l_idx] < right_array[r_idx] {
+            if cmp_expr(left_array[l_idx], right_array[r_idx]) {
                 items[idx] = left_array[l_idx];
                 l_idx += 1;
             } else {
@@ -79,7 +87,7 @@ mod sort_tests {
 
         assert!(items.len() == l);
         for idx in 0..l-2 {
-            assert!(items[idx] <= items[idx + 1]);
+            assert!(items[idx] >= items[idx + 1]);
         }
         //to see output run: cargo test -- --nocapture
         println!("{:?}", items);
@@ -93,7 +101,7 @@ mod sort_tests {
 
         assert!(items.len() == l);
         for idx in 0..l-2 {
-            assert!(items[idx] <= items[idx + 1]);
+            assert!(items[idx] >= items[idx + 1]);
         }
         //to see output run: cargo test -- --nocapture
         println!("{:?}", items);
@@ -115,7 +123,7 @@ mod sort_tests {
         println!("{:?}", items);
 
         for idx in 0..(100 - 2) {
-            assert!(items[idx] <= items[idx + 1]);
+            assert!(items[idx] >= items[idx + 1]);
         }
     }
 }
