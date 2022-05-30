@@ -3,6 +3,8 @@ use atty::Stream;
 #[warn(unreachable_code)]
 use crate::random::print_random_number;
 
+use crate::read_file_utf8::get_file_str;
+
 mod random;
 mod commandline;
 mod ansi_term;
@@ -15,6 +17,7 @@ mod macro_example;
 mod sort;
 mod make_change;
 mod format;
+mod read_file_utf8;
 
 //this is generated from the build.rs 
 //https://doc.rust-lang.org/cargo/reference/build-script-examples.html
@@ -23,6 +26,12 @@ include!(concat!(env!("OUT_DIR"), "/hello.rs"));
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     println!("Running Recipes");
 
+    let rslt = get_file_str();
+
+    match rslt {
+        Ok(r) => println!("Result: {}", r),
+        Err(r) => println!("Error: {}", r)
+    }
 
     format::print_formatted_stuff();
 
