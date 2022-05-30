@@ -3,10 +3,6 @@
 
 pub fn merge_sort<T: PartialOrd + Copy>(items: &mut [T]) {
 
-    if items.len() == 0 {
-        return;
-    }
-
     if items.len() > 1 {
             let mid = items.len()/2;
 
