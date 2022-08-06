@@ -24,6 +24,10 @@ mod read_file_utf8;
 include!(concat!(env!("OUT_DIR"), "/hello.rs"));
 
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
+    
+    println!("Build Result Message(build.rs): {}", build_message());
+    println!("Env OUT_DIR: {}",env!("OUT_DIR"));
+
     println!("Running Recipes");
 
     let rslt = get_file_str();
@@ -59,8 +63,6 @@ fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     misc::iterator_processing();
     //below...
     self::run_fibonacci_sequence_stuff();
-
-    println!("Build Result Message: {}", message());
 
     println!("Running Without Joining");
     crate::concurrency::run_threads_without_with_join(false);

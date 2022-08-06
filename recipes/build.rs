@@ -10,7 +10,7 @@ fn main() {
     let dest_path = Path::new(&out_dir).join("hello.rs");
     fs::write(
         &dest_path,
-        "pub fn message() -> &'static str {
+        "pub fn build_message() -> &'static str {
             \"Hello, Build World!\"
         }
         "

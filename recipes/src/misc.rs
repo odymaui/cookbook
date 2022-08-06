@@ -134,10 +134,12 @@ impl FromIterator<Fibonacci> for Fibonacci {
 impl Iterator for Fibonacci {
     type Item = Self;
     fn next(&mut self) -> Option<Self::Item> {
-
+/*
         let tmp = self.current + self.next;
         self.current = self.next;
         self.next = tmp;
+*/
+        (self.current, self.next) = (self.next, self.current + self.next);
         self.index = self.index + 1;
         Some(
             Fibonacci {
