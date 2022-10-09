@@ -5,6 +5,7 @@ use crate::random::print_random_number;
 
 use crate::read_file_utf8::get_file_str;
 
+mod iterator_tst;
 mod random;
 mod commandline;
 mod ansi_term;
@@ -25,6 +26,8 @@ include!(concat!(env!("OUT_DIR"), "/hello.rs"));
 
 fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
     
+    crate::iterator_tst::sample_work_with_next();
+
     println!("Build Result Message(build.rs): {}", build_message());
     println!("Env OUT_DIR: {}",env!("OUT_DIR"));
 
